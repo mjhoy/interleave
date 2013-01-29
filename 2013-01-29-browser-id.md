@@ -4,7 +4,11 @@ Github, or Twitter's OAuth service isn't giving another web application any data
 authentication, I nevertheless avoid using them and feel annoyed if I am forced to.
 
 And it's dead simple to add to Rails. No big authentication system to add (Devise), no
-complicated user model. Here's our migration to create the `Users` table:
+complicated user model.
+
+## Dead-simple Browser ID authentication for Rails
+
+Here's our migration to create the `Users` table:
 
     create_table :users do |t|
       t.string :email, null: false
@@ -13,11 +17,11 @@ complicated user model. Here's our migration to create the `Users` table:
 
 We just need an email field.
 
-In your Gemfile, add:
+Add to the Gemfile:
 
     gem 'omniauth-browserid'
 
-You'll need an omniauth initializer. Create `config/initializers/omniauth.rb`:
+We'll need an omniauth initializer. Create `config/initializers/omniauth.rb`:
 
     Rails.application.config.middleware.use OmniAuth::Builder do
       provider :browser_id
@@ -77,5 +81,5 @@ module SessionsHelper
 end
 ```
 
-And put `helper :sessions` in `ApplicationController` to access those methods
-in views.
+(Put `helper :sessions` in `ApplicationController` to access those methods
+in views.)
