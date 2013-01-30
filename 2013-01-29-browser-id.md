@@ -83,3 +83,5 @@ end
 
 (Put `helper :sessions` in `ApplicationController` to access those methods
 in views.)
+
+Now start the server, browse to `/auth/browser_id`, and authenticate via Persona!
