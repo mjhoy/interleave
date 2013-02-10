@@ -66,28 +66,6 @@ long int countInversions(int a[], int size, int temp[]) {
   return (inv1 + inv2 + inv3);
 }
 
-void die(const char *message) {
-  if (errno) {
-    perror(message);
-  } else {
-    printf("%s\n", message);
-  }
-  exit(1);
-}
-
-#define BUFSIZE 24
-#define ARRSIZE 100000
-
-int linesInFile(FILE* f) {
-  int ch, number_of_lines = 0;
-  do {
-    ch = fgetc(f);
-    if (ch == '\n') number_of_lines++;
-  } while (ch != EOF);
-  rewind(f);
-  return number_of_lines;
-}
-
 int main(int argc, char* argv[]) {
   int i = 0;
   int sz = ... /* Set to the size of the array ... */
@@ -118,10 +96,9 @@ of this algorithmn should be O(n log(n)), just like merge sort.
 
 Interestingly, given an array up to 1e5, the algorithm _appears_ to run in
 linear time. I have no idea why this is, may investigate further (may be that
-1e5 is still too small for good results, although it approachs a second in
-running time.)
+1e5 is still too small for good results).
 
-[!C algorithm results](https://raw.github.com/mjhoy/interleave/master/_img/c_count_inversions_time.png)
+![C algorithm results](https://raw.github.com/mjhoy/interleave/master/_img/c_count_inversions_time.png)
 
 I also wrote an algorithm in Haskell [2] for fun:
 
@@ -153,17 +130,19 @@ mergeInversions' (x:xs) (y:ys) acc accls
 I was trying to be smart with an iterative recursive function. The performance
 still wasn't very good:
 
-[!Haskell algorithm results](https://github.com/mjhoy/interleave/blob/master/_img/haskell_count_inversions_time.png)
+![Haskell algorithm results](https://raw.github.com/mjhoy/interleave/master/_img/haskell_count_inversions_time.png)
 
 Note I've only gone up to 3e4, and it's already taking close to 3 seconds. But
 the performance curve looks a little more like what I would expect; however,
 there are some big jumps, probably from garbage collection. Also merits further
 investigation.
 
-I know both of these algorithms can likely be improved (especially the Haskell),
-but I'm quite surprised at the C results!
+I know both of these algorithms can likely be improved. Especially, hopefully,
+the Haskell: at array length 3e4, the C version is 80 times faster!
 
 [inversions]:http://www.cp.eng.chula.ac.th/~piak/teaching/algo/algo2008/count-inv.htm
 
-* [1]:Bear in mind I'm just learning C.
-* [2]:Same as above.
+---
+
+[1]: Bear in mind I'm just learning C.<br>
+[2]: Same as above.
